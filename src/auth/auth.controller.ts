@@ -6,9 +6,11 @@ import {
   Req,
   Res,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { AccessTokenGuard } from 'src/guards/accessToken.guard';
@@ -29,10 +31,12 @@ const updateRefreshToken = ({
     maxAge: isLogout ? 0 : MAX_AGE,
   });
 };
+
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @UsePipes(new ValidationPipe())
   @Post('signup')
   async signup(
     @Body() createUserDto: CreateUserDto,
@@ -44,6 +48,7 @@ export class AuthController {
     return response.send({ accessToken });
   }
 
+  @UsePipes(new ValidationPipe())
   @Post('signin')
   async signin(@Body() data: AuthDto, @Res() response: Response) {
     const { accessToken, refreshToken } = await this.authService.signIn(data);

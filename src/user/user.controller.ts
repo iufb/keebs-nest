@@ -10,8 +10,10 @@ import {
   Post,
   Req,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import {
   USERS_NOT_FOUND,
@@ -22,20 +24,22 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { AccessTokenGuard } from 'src/guards/accessToken.guard';
 import { Request } from 'express';
 
-@Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+@Controller('user')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @UsePipes(new ValidationPipe())
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    const isExisted = await this.usersService.findByEmail(createUserDto.email);
+    const isExisted = await this.userService.findByEmail(createUserDto.email);
     if (isExisted) {
       throw new HttpException(USER_ALREADY_EXISTS, 409);
     }
-    return this.usersService.create(createUserDto);
+    return this.userService.create(createUserDto);
   }
   @Get()
   async findAll() {
-    const users = await this.usersService.findAll();
+    const users = await this.userService.findAll();
     if (users.length == 0) {
       throw new NotFoundException(USERS_NOT_FOUND);
     }
@@ -46,17 +50,18 @@ export class UsersController {
   @Get('profile')
   async findById(@Req() req: Request) {
     const userId = req.user['sub'];
-    const user = await this.usersService.getProfile(userId);
+    const user = await this.userService.getProfile(userId);
     if (!user) {
       throw new NotFoundException(USER_NOT_FOUND);
     }
     return user;
   }
 
+  @UsePipes(new ValidationPipe())
   @UseGuards(AccessTokenGuard)
   @Patch()
   async update(id: string, @Body() updateUserDto: UpdateUserDto) {
-    const user = await this.usersService.update(id, updateUserDto);
+    const user = await this.userService.update(id, updateUserDto);
     if (!user) {
       throw new NotFoundException(USER_NOT_FOUND);
     }
@@ -66,7 +71,7 @@ export class UsersController {
   @UseGuards(AccessTokenGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    const user = await this.usersService.remove(id);
+    const user = await this.userService.remove(id);
     if (!user) {
       throw new NotFoundException(USER_NOT_FOUND);
     }

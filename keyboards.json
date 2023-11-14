@@ -1,0 +1,170 @@
+[
+{
+    "name": "NuPhy Halo65",
+    "description": "Wireless Mechanical Keyboard",
+    "colors": ["Ionic White", "Matte Black"],
+    "price": 119.95,
+    "battery": {
+      "capacity": 4000,
+      "workingTimesLigthsOn": 24,
+      "workingTimesLigthsOff": 320
+    },
+    "materials": {
+      "frame": "Aluminum",
+      "bottomCase": "ABS",
+      "keycap": "Double-shot PBT"
+    },
+    "images": [
+      {
+        "image": "https://i.imgur.com/BPa9phS.jpg",
+        "color": "Matte Black"
+      },
+      {
+        "image": "https://i.imgur.com/5k1GNkx.jpg",
+        "color": "Ionic White"
+      },
+      { "image": "https://i.imgur.com/NCYH6Hp.jpg" },
+      { "image": "https://i.imgur.com/Lvgn51b.jpg" }
+    ],
+
+    "profile": "normal",
+    "series": "halo",
+    "connectivity": "tri-mode",
+    "size": 65,
+    "features": ["2.4G 1000Hz", "hot-swap"]
+  },
+  {
+    "name": "NuPhy Air60",
+    "description": "Wireless Mechanical Keyboard",
+    "price": 99.95,
+    "battery": {
+      "capacity": 2500,
+      "workingTimesLigthsOn": 48,
+      "workingTimesLigthsOff": 120
+    },
+    "materials": {
+      "frame": "Aluminum",
+      "bottomCase": "ABS",
+      "keycap": "PBT"
+    },
+    "images": [
+      { "image": "https://i.imgur.com/IM7x9VA.jpg" },
+      { "image": "https://i.imgur.com/TW9NfYS.jpg" },
+      { "image": "https://i.imgur.com/QceO7yy.jpg" }
+      { "image": "https://i.imgur.com/gFnqpEe.jpg" }
+    ],
+
+    "profile": "low",
+    "series": "air",
+    "connectivity": "tri-mode",
+    "size": 60,
+    "features": ["2.4G 1000Hz", "hot-swap"]
+  },
+  {
+    "name": "Field75 Wireless Mechanical Gaming Keyboard",
+    "description": "Wireless Mechanical Gaming Keyboard",
+    "colors": ["Electro", "Ethereal", "Noether", "Gravity"],
+    "price": 159.95,
+    "battery": {
+      "capacity": 4200,
+      "workingTimesLigthsOn": 42,
+      "workingTimesLigthsOff": 160
+    },
+    "materials": {
+      "frame": "ABS",
+      "bottomCase": "ABS",
+      "keycap": "Double-shot PBT"
+    },
+    "images": [
+      {
+        "image": "https://i.imgur.com/c7dZx4G.png",
+        "color": "Electro"
+      },
+      {
+        "image": "https://i.imgur.com/IePUrfM.png",
+        "color": "Ethereal"
+      },
+      { "image": "https://i.imgur.com/9zuzKBU.png", "color": "Noether" },
+      { "image": "https://i.imgur.com/f2rZF2s.png", "color": "Gravity" },
+      { "image": "https://i.imgur.com/VGSAdEJ.png" },
+      { "image": "https://i.imgur.com/yAmfoa8.png" },
+      { "image": "https://i.imgur.com/QfbYtGm.png" }
+    ],
+
+    "profile": "normal",
+    "series": "field",
+    "connectivity": "tri-mode",
+    "size": 75,
+    "features": ["2.4G 1000Hz", "hot-swap", "knob"]
+  },
+  {
+    "name": "NuPhy Halo96",
+    "description": "Wireless Mechanical Keyboard",
+    "colors": ["Ionic White", "Matte Black"],
+    "price": 139.95,
+    "battery": {
+      "capacity": 4000,
+      "workingTimesLigthsOn": 10,
+      "workingTimesLigthsOff": 205
+    },
+    "materials": {
+      "frame": "Aluminum",
+      "bottomCase": "ABS",
+      "keycap": "Double-shot PBT"
+    },
+    "images": [
+      {
+        "image": "https://i.imgur.com/UAxnyOn.jpg",
+        "color": "Matte Black"
+      },
+      {
+        "image": "https://i.imgur.com/rzc6EM1.jpg",
+        "color": "Ionic White"
+      },
+      { "image": "https://i.imgur.com/l0FtOoc.jpg" },
+      { "image": "https://i.imgur.com/zIkd8hi.jpg" }
+    ],
+
+    "profile": "normal",
+    "series": "halo",
+    "connectivity": "tri-mode",
+    "size": 96,
+    "features": ["2.4G 1000Hz", "hot-swap"]
+  },
+  {
+    "name": "NuPhy Air75 V2",
+    "description": "QMK/VIA Wireless Custom Mechanical Keyboard",
+    "colors": ["Ionic White", "Basalt Black", "Lunar Gray"],
+    "price": 119.95,
+    "battery": {
+      "capacity": 4000,
+      "workingTimesLigthsOn": 57,
+      "workingTimesLigthsOff": 220
+    },
+    "materials": {
+      "frame": "Aluminum",
+      "bottomCase": "ABS",
+      "keycap": "Double-shot PBT"
+    },
+    "images": [
+      {
+        "image": "https://i.imgur.com/UAxnyOn.jpg",
+        "color": "Basalt Black"
+      },
+      {
+        "image": "https://i.imgur.com/KtXncW7.jpg",
+        "color": "Ionic White"
+      },
+      { "image": "https://i.imgur.com/fILn5YH.jpg", "color": "Lunar Gray" },
+      { "image": "https://i.imgur.com/9WevzLx.jpg" },
+      { "image": "https://i.imgur.com/pD1obzh.jpg" },
+      { "image": "https://i.imgur.com/2vLUEW3.jpg" }
+    ],
+
+    "profile": "low",
+    "series": "air",
+    "connectivity": "tri-mode",
+    "size": 75,
+    "features": ["2.4G 1000Hz", "hot-swap"]
+  }
+]

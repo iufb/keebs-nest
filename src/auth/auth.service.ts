@@ -7,26 +7,26 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { compare, genSalt, hash } from 'bcryptjs';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { USER_ALREADY_EXISTS, USER_NOT_FOUND } from 'src/users/user.constants';
-import { UsersService } from 'src/users/users.service';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { USER_ALREADY_EXISTS, USER_NOT_FOUND } from 'src/user/user.constants';
+import { UserService } from 'src/user/user.service';
 import { AuthDto } from './dto/auth.dto';
 import { ACCESS_DENIED, WRONG_PASSWORD } from './auth.constants';
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
+    private userService: UserService,
     private jwtService: JwtService,
     private configService: ConfigService,
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<any> {
-    const userExists = await this.usersService.findByEmail(createUserDto.email);
+    const userExists = await this.userService.findByEmail(createUserDto.email);
     if (userExists) {
       throw new BadRequestException(USER_ALREADY_EXISTS);
     }
     const passwordHash = await this.hashData(createUserDto.password);
-    const newUser = await this.usersService.create({
+    const newUser = await this.userService.create({
       ...createUserDto,
       password: passwordHash,
     });
@@ -45,10 +45,10 @@ export class AuthService {
     return tokens;
   }
   async logout(userId: string) {
-    return this.usersService.update(userId, { refreshToken: null });
+    return this.userService.update(userId, { refreshToken: null });
   }
   async validateUser(email: string, password: string) {
-    const user = await this.usersService.findByEmail(email);
+    const user = await this.userService.findByEmail(email);
     if (!user) {
       throw new UnauthorizedException(USER_NOT_FOUND);
     }
@@ -64,7 +64,7 @@ export class AuthService {
   }
   async updateRefreshToken(userId: string, refreshToken: string) {
     const hashedRefreshToken = await this.hashData(refreshToken);
-    await this.usersService.update(userId, {
+    await this.userService.update(userId, {
       refreshToken: hashedRefreshToken,
     });
   }
@@ -88,7 +88,7 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
   async refreshTokens(userId: string, refreshToken: string) {
-    const user = await this.usersService.findById(userId);
+    const user = await this.userService.findById(userId);
     if (!user || !user.refreshToken) {
       throw new ForbiddenException(ACCESS_DENIED);
     }
