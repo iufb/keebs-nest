@@ -17,7 +17,10 @@ lerna-debug.log*
 # Tests
 /coverage
 /.nyc_output
-
+env
+keyboards.json
+keycaps.json
+switches.json
 # IDEs and editors
 /.idea
 .project

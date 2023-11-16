@@ -7,6 +7,8 @@ import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { getMongoConfig } from './configs/mongo.config';
 import { KeyboardModule } from './keyboard/keyboard.module';
+import { KeycapModule } from './keycap/keycap.module';
+import { SwitchesModule } from './switches/switches.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { KeyboardModule } from './keyboard/keyboard.module';
     AuthModule,
     UserModule,
     KeyboardModule,
+    KeycapModule,
+    SwitchesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
