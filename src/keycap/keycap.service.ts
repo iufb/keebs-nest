@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Keycap, KeycapDocument } from './keycap.model';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { AddKeycapDto } from './dto/add-keycap.dto';
 
 @Injectable()
@@ -16,5 +16,8 @@ export class KeycapService {
 
   getAll() {
     return this.keycapModel.find().exec();
+  }
+  getById(id: string) {
+    return this.keycapModel.findOne({ _id: new Types.ObjectId(id) }).exec();
   }
 }

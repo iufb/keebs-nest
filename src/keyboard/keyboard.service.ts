@@ -9,9 +9,10 @@ export class KeyboardService {
   constructor(
     @InjectModel(Keyboard.name) private keyboardModel: Model<KeyboardDocument>,
   ) {}
-  async addKeyboard(addKeyboardDto: AddKeyboardDto) {
-    const newKeyboard = new this.keyboardModel(addKeyboardDto);
-    return newKeyboard.save();
+  async addKeyboard(addKeyboardDto: AddKeyboardDto[]) {
+    return addKeyboardDto.map((keyboard) =>
+      this.keyboardModel.create(keyboard),
+    );
   }
   getAllKeyboards() {
     return this.keyboardModel.find().exec();

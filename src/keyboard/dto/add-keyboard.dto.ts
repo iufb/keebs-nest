@@ -36,6 +36,12 @@ class KeyboardImages {
   @IsString()
   color?: string;
 }
+class Color {
+  @IsString()
+  name: string;
+  @IsString()
+  hex: string;
+}
 export class AddKeyboardDto {
   @IsString()
   name: string;
@@ -45,8 +51,7 @@ export class AddKeyboardDto {
 
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
-  colors?: string[];
+  colors?: Color[];
 
   @IsNumber()
   price: number;

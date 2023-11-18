@@ -11,6 +11,7 @@ import {
 import { KeyboardService } from './keyboard.service';
 import { AddKeyboardDto } from './dto/add-keyboard.dto';
 import { KEYBOARD_NOT_FOUND } from './keyboard.constant';
+import { IdValidationPipe } from 'src/pipes/id-validation.pipe';
 
 @Controller('keyboard')
 export class KeyboardController {
@@ -18,7 +19,7 @@ export class KeyboardController {
 
   @UsePipes(new ValidationPipe())
   @Post()
-  addKeyboard(@Body() dto: AddKeyboardDto) {
+  addKeyboard(@Body() dto: AddKeyboardDto[]) {
     return this.keyboardService.addKeyboard(dto);
   }
   @Get()
@@ -29,6 +30,8 @@ export class KeyboardController {
     }
     return keyboards;
   }
+
+  @UsePipes(IdValidationPipe)
   @Get(':id')
   async getById(@Param('id') id: string) {
     const keyboard = await this.keyboardService.getKeyboardById(id);

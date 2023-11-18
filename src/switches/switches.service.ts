@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Switches, SwitchesDocument } from './switches.model';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { AddSwitchesDto } from './dto/add-switches.dto';
 
 @Injectable()
@@ -15,5 +15,8 @@ export class SwitchesService {
   }
   getAll() {
     return this.switchesModel.find().exec();
+  }
+  getById(id: string) {
+    return this.switchesModel.findOne({ _id: new Types.ObjectId(id) }).exec();
   }
 }

@@ -24,7 +24,7 @@ export enum KeyboardSizeEnum {
 
 export type KeyboardFeaturesType = '2.4G 1000Hz' | 'hot-swap' | 'knob';
 
-@Schema()
+@Schema({ _id: false })
 class KeyboardBatteryType {
   @Prop()
   capacity: number;
@@ -34,7 +34,7 @@ class KeyboardBatteryType {
   workingTimeLightsOff: number;
 }
 
-@Schema()
+@Schema({ _id: false })
 class KeyboardImagesType {
   @Prop()
   image: string;
@@ -42,7 +42,7 @@ class KeyboardImagesType {
   color?: string;
 }
 
-@Schema()
+@Schema({ _id: false })
 class KeyboardMaterialsType {
   @Prop()
   frame: string;
@@ -51,7 +51,13 @@ class KeyboardMaterialsType {
   @Prop()
   keycap: string;
 }
-
+@Schema({ _id: false })
+class Color {
+  @Prop()
+  name: string;
+  @Prop()
+  hex: string;
+}
 @Schema()
 export class Keyboard {
   @Prop()
@@ -59,7 +65,7 @@ export class Keyboard {
   @Prop()
   description: string;
   @Prop()
-  colors?: string[];
+  colors?: Color[];
   @Prop()
   price: number;
   @Prop()
