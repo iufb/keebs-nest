@@ -9,6 +9,7 @@ import { getMongoConfig } from './configs/mongo.config';
 import { KeyboardModule } from './keyboard/keyboard.module';
 import { KeycapModule } from './keycap/keycap.module';
 import { SwitchesModule } from './switches/switches.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SwitchesModule } from './switches/switches.module';
     KeyboardModule,
     KeycapModule,
     SwitchesModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
