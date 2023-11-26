@@ -29,14 +29,16 @@ export class KeyboardService {
   getFilters() {
     return keyboardFilters;
   }
-  async getFilteredKeyboards(filters: FilterKeyboardDto) {
-    const pipeline = filters.filters.map(({ filterSlug, value }) => {
+  async getKeyboards(params?: FilterKeyboardDto) {
+    if (!params.filters && !params.sort) {
+      return this.getAllKeyboards();
+    }
+    const pipeline = params.filters.map(({ filterSlug, value }) => {
       if (filterSlug == 'features') {
         return { [filterSlug]: { $in: value } };
       }
       return { [filterSlug]: value };
     });
-    console.log(pipeline);
     const result = await this.keyboardModel
       .find(
         pipeline.length > 0
@@ -45,7 +47,7 @@ export class KeyboardService {
             }
           : {},
       )
-      .sort({ price: filters.sort })
+      .sort({ price: params.sort })
       .exec();
     return result;
   }

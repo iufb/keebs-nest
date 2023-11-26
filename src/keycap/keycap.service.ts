@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Keycap, KeycapDocument } from './keycap.model';
 import { Model, Types } from 'mongoose';
 import { AddKeycapDto } from './dto/add-keycap.dto';
+import { FilterKeycapDto } from './dto/filter-keycap.dto';
+import { keycapFilters } from './keycap.constants';
 
 @Injectable()
 export class KeycapService {
@@ -16,6 +18,28 @@ export class KeycapService {
 
   getAll() {
     return this.keycapModel.find().exec();
+  }
+  async getKeycaps(params?: FilterKeycapDto) {
+    if (!params.filters && !params.sort) {
+      return this.getAll();
+    }
+    const pipeline = params.filters.map(({ filterSlug, value }) => {
+      return { [filterSlug]: value };
+    });
+    const result = await this.keycapModel
+      .find(
+        pipeline.length > 0
+          ? {
+              $or: pipeline,
+            }
+          : {},
+      )
+      .sort({ price: params.sort })
+      .exec();
+    return result;
+  }
+  getFilters() {
+    return keycapFilters;
   }
   getById(id: string) {
     return this.keycapModel.findOne({ _id: new Types.ObjectId(id) }).exec();

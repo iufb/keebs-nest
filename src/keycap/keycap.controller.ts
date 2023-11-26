@@ -12,19 +12,27 @@ import { KeycapService } from './keycap.service';
 import { AddKeycapDto } from './dto/add-keycap.dto';
 import { KEYCAP_NOT_FOUND_ERROR } from './keycap.constants';
 import { IdValidationPipe } from 'src/pipes/id-validation.pipe';
+import { FilterKeycapDto } from './dto/filter-keycap.dto';
 
 @Controller('keycap')
 export class KeycapController {
   constructor(private readonly keycapService: KeycapService) {}
 
   @UsePipes(new ValidationPipe())
-  @Post()
+  @Post('/add')
   addKeycap(@Body() dto: AddKeycapDto) {
     return this.keycapService.addKeycap(dto);
   }
-  @Get()
-  getAll() {
-    return this.keycapService.getAll();
+
+  @UsePipes(new ValidationPipe())
+  @Post()
+  getKeycaps(@Body() dto: FilterKeycapDto) {
+    return this.keycapService.getKeycaps(dto);
+  }
+
+  @Get('/filters')
+  getFilters() {
+    return this.keycapService.getFilters();
   }
 
   @UsePipes(IdValidationPipe)

@@ -5,7 +5,6 @@ import {
   NotFoundException,
   Param,
   Post,
-  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -18,28 +17,21 @@ import { FilterKeyboardDto } from './dto/filter-keyboard.dto';
 @Controller('keyboard')
 export class KeyboardController {
   constructor(private readonly keyboardService: KeyboardService) {}
-
   @UsePipes(new ValidationPipe())
-  @Post()
+  @Post('add')
   addKeyboard(@Body() dto: AddKeyboardDto[]) {
     return this.keyboardService.addKeyboard(dto);
   }
-  @Get()
-  async getAll() {
-    const keyboards = await this.keyboardService.getAllKeyboards();
-    if (keyboards.length == 0) {
-      throw new NotFoundException(KEYBOARD_NOT_FOUND);
-    }
-    return keyboards;
+
+  @UsePipes(new ValidationPipe())
+  @Post()
+  async getKeyboards(@Body() filters?: FilterKeyboardDto) {
+    return this.keyboardService.getKeyboards(filters);
   }
+
   @Get('filters')
   async getFilters() {
     return this.keyboardService.getFilters();
-  }
-  @UsePipes(new ValidationPipe())
-  @Post('/filter')
-  async getFilteredKeyboards(@Body() filters: FilterKeyboardDto) {
-    return this.keyboardService.getFilteredKeyboards(filters);
   }
 
   @UsePipes(IdValidationPipe)

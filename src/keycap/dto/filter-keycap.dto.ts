@@ -7,7 +7,7 @@ class Filter {
   @IsString()
   value: string;
 }
-export class FilterKeyboardDto {
+export class FilterKeycapDto {
   @IsOptional()
   @IsArray()
   @Type(() => Filter)

@@ -12,19 +12,27 @@ import { SwitchesService } from './switches.service';
 import { AddSwitchesDto } from './dto/add-switches.dto';
 import { SWITCHES_NOT_FOUND_ERROR } from './switches.constants';
 import { IdValidationPipe } from 'src/pipes/id-validation.pipe';
+import { FilterSwitchesDto } from './dto/filter-switches.dto';
 
 @Controller('switches')
 export class SwitchesController {
   constructor(private readonly switchesService: SwitchesService) {}
 
   @UsePipes(new ValidationPipe())
-  @Post()
+  @Post('add')
   addSwitches(@Body() dto: AddSwitchesDto) {
     return this.switchesService.addSwitches(dto);
   }
-  @Get()
-  getAll() {
-    return this.switchesService.getAll();
+
+  @UsePipes(new ValidationPipe())
+  @Post()
+  getSwitches(@Body() params: FilterSwitchesDto) {
+    return this.switchesService.getSwitches(params);
+  }
+
+  @Get('/filters')
+  getFilters() {
+    return this.switchesService.getFilters();
   }
 
   @UsePipes(IdValidationPipe)
