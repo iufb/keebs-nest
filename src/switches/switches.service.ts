@@ -18,6 +18,13 @@ export class SwitchesService {
   getAll() {
     return this.switchesModel.find().exec();
   }
+  getByProfile(profile: string) {
+    console.log(profile);
+    return this.switchesModel.find(
+      { compatibility: profile },
+      { name: 1, price: 1 },
+    );
+  }
   getById(id: string) {
     return this.switchesModel.findOne({ _id: new Types.ObjectId(id) }).exec();
   }

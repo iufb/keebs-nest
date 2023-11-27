@@ -30,11 +30,6 @@ export class SwitchesController {
     return this.switchesService.getSwitches(params);
   }
 
-  @Get('/filters')
-  getFilters() {
-    return this.switchesService.getFilters();
-  }
-
   @UsePipes(IdValidationPipe)
   @Get(':id')
   async getById(@Param('id') id: string) {
@@ -43,5 +38,18 @@ export class SwitchesController {
       throw new NotFoundException(SWITCHES_NOT_FOUND_ERROR);
     }
     return switches;
+  }
+
+  @Get('/byProfile/:profile')
+  async getByProfile(@Param('profile') profile: string) {
+    const switches = await this.switchesService.getByProfile(profile);
+    if (switches.length == 0) {
+      throw new NotFoundException(SWITCHES_NOT_FOUND_ERROR);
+    }
+    return switches;
+  }
+  @Get('/filters')
+  getFilters() {
+    return this.switchesService.getFilters();
   }
 }

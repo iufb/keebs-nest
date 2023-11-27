@@ -38,6 +38,12 @@ export class KeycapService {
       .exec();
     return result;
   }
+  getByProfile(profile: string) {
+    return this.keycapModel.find(
+      { compatibility: profile },
+      { name: 1, price: 1 },
+    );
+  }
   getFilters() {
     return keycapFilters;
   }

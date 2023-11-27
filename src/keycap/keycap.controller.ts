@@ -35,6 +35,15 @@ export class KeycapController {
     return this.keycapService.getFilters();
   }
 
+  @Get('/byProfile/:profile')
+  async getByProfile(@Param('profile') profile: string) {
+    const keycaps = await this.keycapService.getByProfile(profile);
+    if (keycaps.length == 0) {
+      throw new NotFoundException(KEYCAP_NOT_FOUND_ERROR);
+    }
+    return keycaps;
+  }
+
   @UsePipes(IdValidationPipe)
   @Get(':id')
   async getById(@Param('id') id: string) {
