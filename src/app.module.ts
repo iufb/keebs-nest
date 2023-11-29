@@ -10,6 +10,7 @@ import { KeyboardModule } from './keyboard/keyboard.module';
 import { KeycapModule } from './keycap/keycap.module';
 import { SwitchesModule } from './switches/switches.module';
 import { ProductModule } from './product/product.module';
+import { WishlistModule } from './wishlist/wishlist.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ProductModule } from './product/product.module';
     KeycapModule,
     SwitchesModule,
     ProductModule,
+    WishlistModule,
   ],
   controllers: [AppController],
   providers: [AppService],
