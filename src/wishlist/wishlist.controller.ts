@@ -23,10 +23,7 @@ export class WishlistController {
   @UseGuards(AccessTokenGuard)
   @UsePipes(new ValidationPipe())
   @Post()
-  addProductToWishlist(
-    @Body() dto: Pick<AddToWishlistDto, 'productId' | 'productType'>,
-    @Req() req: Request,
-  ) {
+  addProductToWishlist(@Body() dto: AddToWishlistDto, @Req() req: Request) {
     const userId = req.user['sub'];
     const wishlistDto: AddToWishlistDto = { ...dto, userId };
     return this.wishlistService.addItemToWishlist(wishlistDto);
@@ -44,6 +41,20 @@ export class WishlistController {
   @Delete(':id')
   deleteProductFromWishlist(@Req() req: Request, @Param('id') id: string) {
     const userId = req.user['sub'];
+    console.log(id, userId);
     return this.wishlistService.removeProductFromWishlist(userId, id);
+  }
+  @UseGuards(AccessTokenGuard)
+  @Get('/count')
+  getProductsCount(@Req() req: Request) {
+    const userId = req.user['sub'];
+    return this.wishlistService.getProductCount(userId);
+  }
+  @UsePipes(IdValidationPipe)
+  @Get(':id')
+  @UseGuards(AccessTokenGuard)
+  isIn(@Req() req: Request, @Param('id') id: string) {
+    const userId = req.user['sub'];
+    return this.wishlistService.isIn(userId, id);
   }
 }

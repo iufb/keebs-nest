@@ -37,9 +37,24 @@ export class WishlistService {
     });
     return wishlistItem.save();
   }
+  async getProductCount(userId: string) {
+    const wishlist = await this.find(userId);
+    return wishlist.products.length;
+  }
   async isExist(id: string) {
     const wishlist = await this.find(id);
+
     return { wishlist, isExist: !!wishlist };
+  }
+  async isIn(userId: string, productId: string) {
+    return !!(await this.wishlistModel.findOne({
+      userId,
+      products: {
+        $elemMatch: {
+          id: productId,
+        },
+      },
+    }));
   }
   find(userId: string) {
     return this.wishlistModel.findOne({ userId }).exec();
