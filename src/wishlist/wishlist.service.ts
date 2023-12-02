@@ -26,7 +26,7 @@ export class WishlistService {
     @InjectModel(Switches.name)
     private readonly switchesModel: Model<SwitchesDocument>,
   ) {}
-  create(dto: AddToWishlistDto) {
+  create(dto: AddToWishlistDto & { userId: string }) {
     const product = {
       id: dto.productId,
       productType: dto.productType,
@@ -59,7 +59,7 @@ export class WishlistService {
   find(userId: string) {
     return this.wishlistModel.findOne({ userId }).exec();
   }
-  async addItemToWishlist(dto: AddToWishlistDto) {
+  async addItemToWishlist(dto: AddToWishlistDto & { userId: string }) {
     const isExist = await this.isExist(dto.userId);
 
     if (!isExist.isExist) {

@@ -1,13 +1,11 @@
-import { IsOptional, IsString } from 'class-validator';
-
+import { IsIn, IsString } from 'class-validator';
+import { productTypes } from 'src/utils/constants';
+import { ProductType } from 'src/utils/types';
 export class AddToWishlistDto {
+  @IsIn(productTypes)
   @IsString()
-  productType: string;
+  productType: ProductType;
 
   @IsString()
   productId: string;
-
-  @IsOptional()
-  @IsString()
-  userId?: string;
 }
