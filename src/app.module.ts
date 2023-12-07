@@ -9,8 +9,8 @@ import { getMongoConfig } from './configs/mongo.config';
 import { KeyboardModule } from './keyboard/keyboard.module';
 import { KeycapModule } from './keycap/keycap.module';
 import { SwitchesModule } from './switches/switches.module';
-import { ProductModule } from './product/product.module';
 import { WishlistModule } from './wishlist/wishlist.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -25,8 +25,8 @@ import { WishlistModule } from './wishlist/wishlist.module';
     KeyboardModule,
     KeycapModule,
     SwitchesModule,
-    ProductModule,
     WishlistModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],

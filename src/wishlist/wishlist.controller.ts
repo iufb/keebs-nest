@@ -25,7 +25,7 @@ export class WishlistController {
   @Post()
   addProductToWishlist(@Body() dto: AddToWishlistDto, @Req() req: Request) {
     const userId = req.user['sub'];
-    const wishlistDto: AddToWishlistDto = { ...dto, userId };
+    const wishlistDto = { ...dto, userId };
     return this.wishlistService.addItemToWishlist(wishlistDto);
   }
 
