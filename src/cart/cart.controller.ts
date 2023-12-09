@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Patch,
   Post,
   Req,
   UseGuards,
@@ -12,6 +13,7 @@ import { CartService } from './cart.service';
 import { AddToCartDto } from './dto/add-to-cart.dto';
 import { AccessTokenGuard } from 'src/guards/accessToken.guard';
 import { Request } from 'express';
+import { ActionType } from 'src/utils/types';
 
 @Controller('cart')
 export class CartController {
@@ -19,8 +21,8 @@ export class CartController {
 
   @UsePipes(new ValidationPipe())
   @UseGuards(AccessTokenGuard)
-  @Post('/create')
-  create(@Body() dto: AddToCartDto, @Req() req: Request) {
+  @Post('/add')
+  create(@Body() dto: AddToCartDto[], @Req() req: Request) {
     const userId = req.user['sub'];
     return this.cartService.add(dto, userId);
   }
@@ -30,5 +32,11 @@ export class CartController {
   getCart(@Req() req: Request) {
     const userId = req.user['sub'];
     return this.cartService.getCart(userId);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Patch('quantity')
+  updateQuantity(@Body() dto: { id: string; action: ActionType }) {
+    return this.cartService.updateQuantity(dto.id, dto.action);
   }
 }

@@ -21,31 +21,29 @@ export class CartService {
     @InjectModel(Switches.name)
     private readonly switchesModel: Model<SwitchesDocument>,
   ) {}
-  async add(
-    { productId, productType, color, switches }: AddToCartDto,
-    userId: string,
-  ) {
-    const existedProduct = await this.findProduct(
-      userId,
-      productId,
-      color,
-      switches,
-    );
-    console.log(color, switches);
-    if (!existedProduct) {
-      const cartItem = new this.cartModel({
+  async add(dto: AddToCartDto[], userId: string) {
+    dto.forEach(async ({ productId, color, switches, productType }) => {
+      const existedProduct = await this.findProduct(
         userId,
         productId,
-        productType,
-        extra: {
-          color,
-          switches,
-        },
-        quantity: 1,
-      });
-      return cartItem.save();
-    }
-    return await this.updateQuantity(existedProduct.id, 'increase');
+        color,
+        switches,
+      );
+      if (!existedProduct) {
+        const cartItem = new this.cartModel({
+          userId,
+          productId: new Types.ObjectId(productId),
+          productType,
+          extra: {
+            color,
+            switches,
+          },
+          quantity: 1,
+        });
+        return cartItem.save();
+      }
+      return await this.updateQuantity(existedProduct.id, 'increase');
+    });
   }
   async findProduct(
     userId: string,
@@ -62,7 +60,13 @@ export class CartService {
     return product;
   }
   async updateQuantity(id: string, action: 'increase' | 'decrease') {
-    return this.cartModel.findOneAndUpdate(
+    const product = await this.cartModel.findOne({
+      _id: new Types.ObjectId(id),
+    });
+    if (product.quantity == 1 && action == 'decrease') {
+      await this.cartModel.findByIdAndDelete(id);
+    }
+    await this.cartModel.findOneAndUpdate(
       { _id: id },
       {
         $inc: {
@@ -77,8 +81,8 @@ export class CartService {
       string,
       Model<KeycapDocument | KeyboardDocument | SwitchesDocument>
     > = {
-      keyboard: this.keyboardModel,
-      keycap: this.keycapModel,
+      keyboards: this.keyboardModel,
+      keycaps: this.keycapModel,
       switches: this.switchesModel,
     };
     const products = await Promise.all(
@@ -90,7 +94,7 @@ export class CartService {
           id: product._id,
           productId: productDetails._id,
           name: productDetails.name,
-          price: productDetails.price,
+          price: (productDetails.price * product.quantity).toFixed(2),
           extra: product.extra,
           quantity: product.quantity,
           img:

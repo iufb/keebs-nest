@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { ProductType } from 'src/utils/types';
 
 export type CartDocument = Cart & Document;
@@ -19,7 +19,7 @@ export class Cart {
   productType: ProductType;
 
   @Prop({ required: true })
-  productId: string;
+  productId: Types.ObjectId;
 
   @Prop()
   extra: Extra;
