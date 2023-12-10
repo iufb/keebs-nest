@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { KeyboardService } from './keyboard.service';
 import { AddKeyboardDto } from './dto/add-keyboard.dto';
-import { KEYBOARD_NOT_FOUND } from './keyboard.constant';
+import { KEYBOARD_NOT_FOUND, heroKeyboards } from './keyboard.constant';
 import { IdValidationPipe } from 'src/pipes/id-validation.pipe';
 import { FilterKeyboardDto } from './dto/filter-keyboard.dto';
 
@@ -29,11 +29,14 @@ export class KeyboardController {
     return this.keyboardService.getKeyboards(filters);
   }
 
-  @Get('filters')
+  @Get('/filters')
   async getFilters() {
     return this.keyboardService.getFilters();
   }
-
+  @Get('/hero')
+  async getHeroKeyboards() {
+    return heroKeyboards;
+  }
   @UsePipes(IdValidationPipe)
   @Get(':id')
   async getById(@Param('id') id: string) {

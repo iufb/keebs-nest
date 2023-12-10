@@ -46,3 +46,23 @@ export const keyboardFilters = [
     ],
   },
 ];
+export const heroKeyboards = [
+  {
+    id: '6558b4f81191f9245aaf4fcf',
+    img: 'https://i.imgur.com/GAGCHqf.jpg',
+    name: 'Air60 V2',
+    desc: '60% layout, 100% freedom.',
+  },
+  {
+    id: '6558b4f81191f9245aaf4fcd',
+    img: 'https://i.imgur.com/x1Kx6SK.jpg',
+    name: 'Air75 V2',
+    desc: 'The fastest and the slimmest QMK/VIA keyboard on the planet.',
+  },
+  {
+    id: '6562e6c767b30852c3c63053',
+    img: 'https://i.imgur.com/MfUpJmH.jpg',
+    name: 'Field 75',
+    desc: 'Everyday is a field day.',
+  },
+];

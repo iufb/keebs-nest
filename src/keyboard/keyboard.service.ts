@@ -29,6 +29,7 @@ export class KeyboardService {
   getFilters() {
     return keyboardFilters;
   }
+
   async getKeyboards(params?: FilterKeyboardDto) {
     if (!params.filters && !params.sort) {
       return this.getAllKeyboards();
