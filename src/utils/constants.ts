@@ -1,1 +1,1 @@
-export const productTypes = ['keyboard', 'keycap', 'switches'];
+export const productTypes = ['keyboards', 'keycaps', 'switches'];

@@ -45,6 +45,9 @@ export class CartService {
       return await this.updateQuantity(existedProduct.id, 'increase');
     });
   }
+  async getTotalCount(userId: string) {
+    return (await this.cartModel.find({ userId }).exec()).length;
+  }
   async findProduct(
     userId: string,
     productId: string,
@@ -53,7 +56,7 @@ export class CartService {
   ) {
     const product = await this.cartModel.findOne({
       userId,
-      productId,
+      productId: new Types.ObjectId(productId),
       'extra.color': color,
       'extra.switches': switches,
     });
@@ -104,6 +107,7 @@ export class CartService {
         };
       }),
     );
-    return products;
+    const total = products.reduce((acc, value) => acc + +value.price, 0);
+    return { products, total };
   }
 }

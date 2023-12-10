@@ -33,6 +33,12 @@ export class CartController {
     const userId = req.user['sub'];
     return this.cartService.getCart(userId);
   }
+  @UseGuards(AccessTokenGuard)
+  @Get('/totalCount')
+  getTotalCount(@Req() req: Request) {
+    const userId = req.user['sub'];
+    return this.cartService.getTotalCount(userId);
+  }
 
   @UseGuards(AccessTokenGuard)
   @Patch('quantity')

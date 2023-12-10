@@ -93,11 +93,12 @@ export class WishlistService {
       string,
       Model<KeycapDocument | KeyboardDocument | SwitchesDocument>
     > = {
-      keyboard: this.keyboardModel,
-      keycap: this.keycapModel,
+      keyboards: this.keyboardModel,
+      keycaps: this.keycapModel,
       switches: this.switchesModel,
     };
     const wishlist = await this.find(userId);
+    if (!wishlist) return [];
     const wishlistItems = await Promise.all(
       wishlist.products.map(async (product) => {
         const productDetails = await productType[product.productType].findOne({
@@ -106,6 +107,7 @@ export class WishlistService {
         return {
           id: productDetails._id,
           name: productDetails.name,
+          productType: product.productType,
           price: productDetails.price,
           img:
             typeof productDetails.images[0] == 'object'
