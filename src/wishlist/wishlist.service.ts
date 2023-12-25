@@ -104,8 +104,9 @@ export class WishlistService {
         const productDetails = await productType[product.productType].findOne({
           _id: new Types.ObjectId(product.id),
         });
+        if (!productDetails) return;
         return {
-          id: productDetails._id,
+          id: productDetails?._id,
           name: productDetails.name,
           productType: product.productType,
           price: productDetails.price,
@@ -116,7 +117,7 @@ export class WishlistService {
         };
       }),
     );
-    return wishlistItems;
+    return wishlistItems.filter((item) => item !== undefined);
   }
   async removeProductFromWishlist(userId: string, productId: string) {
     const wishlist = await this.find(userId);
